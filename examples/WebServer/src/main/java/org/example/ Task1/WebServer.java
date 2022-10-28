@@ -1,6 +1,8 @@
-package org.example;
+package org.example.Task1;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -8,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Simple web server.
  */
-public class  WebServer {
+public class WebServer {
     public static void main(String[] args) {
         // Port number for http request
         int port = args.length > 1 ? Integer.parseInt(args[1]) : 8080;
@@ -31,13 +33,15 @@ public class  WebServer {
 
                 try {
                     // Get request
-                    HttpRequest request = HttpRequest.parse(input);
+                    org.example.Task1.HttpRequest request = org.example.Task1.HttpRequest.parse(input);
 
                     // Process request
-                    Processor proc = new Processor(socket, request);
+                    org.example.Task1.Processor proc = new org.example.Task1.Processor(socket, request);
                     proc.process();
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
